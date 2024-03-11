@@ -1,11 +1,9 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/APP-NAME/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/APP-NAME/tree/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/edgedb-app/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/edgedb-app/tree/main)
 
-[Read me after cloning this template (GS staff only)](https://handbook.giantswarm.io/docs/dev-and-releng/app-developer-processes/adding_app_to_appcatalog/)
+# EdgeDB chart
 
-# {APP-NAME} chart
-
-Giant Swarm offers a {APP-NAME} App which can be installed in workload clusters.
-Here we define the {APP-NAME} chart with its templates and default configuration.
+Giant Swarm offers a EdgeDB App which can be installed in workload clusters.
+Here we define the EdgeDB chart with its templates and default configuration.
 
 **What is this app?**
 
