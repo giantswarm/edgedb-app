@@ -2,14 +2,16 @@
 
 # EdgeDB chart
 
-Giant Swarm offers a EdgeDB App which can be installed in workload clusters.
-Here we define the EdgeDB chart with its templates and default configuration.
-
-**What is this app?**
+This repository contains a slightly opinionated Helm chart for running EdgeDB in a Giant Swarm cluster.
+It assumes an externally managed PostgreSQL instance will be provided.
 
 **Why did we add it?**
 
+EdgeDB is a graph database that uses PostgreSQL as a back end. Several capabilities of the Giant Swarm security platform, and specifically Policy API, benefit from the capabilities of a graph database. This app supports those capabilities.
+
 **Who can use it?**
+
+The chart is slightly opinionated for Giant Swarm's use case, but may be generic enough to be used by others. PRs are welcome.
 
 ## Installing
 
@@ -21,48 +23,12 @@ There are several ways to install this app onto a workload cluster.
 
 ## Configuring
 
-### values.yaml
-
-**This is an example of a values file you could upload using our web interface.**
-
-```yaml
-# values.yaml
-
-```
-
-### Sample App CR and ConfigMap for the management cluster
-
-If you have access to the Kubernetes API on the management cluster, you could create
-the App CR and ConfigMap directly.
-
-Here is an example that would install the app to
-workload cluster `abc12`:
-
-```yaml
-# appCR.yaml
-
-```
-
-```yaml
-# user-values-configmap.yaml
-
-```
-
 See our [full reference on how to configure apps](https://docs.giantswarm.io/getting-started/app-platform/app-configuration/) for more details.
-
-## Compatibility
-
-This app has been tested to work with the following workload cluster release versions:
-
-- _add release version_
-
-## Limitations
-
-Some apps have restrictions on how they can be deployed.
-Not following these limitations will most likely result in a broken deployment.
-
-- _add limitation_
 
 ## Credit
 
-- {APP HELM REPOSITORY}
+- [EdgeDB][edgedb]
+- Chart originally based on the [nanak8s edgedb charts][nanak8s]
+
+[edgedb]: https://github.com/edgedb/edgedb
+[nanak8s]: https://github.com/Japan7/nanak8s/tree/main/charts/edgedb
