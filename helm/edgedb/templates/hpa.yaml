@@ -3,6 +3,7 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "edgedb.fullname" . }}
+  namespace: {{ include "resource.default.namespace" . }}
   labels:
     {{- include "edgedb.labels" . | nindent 4 }}
 spec:
