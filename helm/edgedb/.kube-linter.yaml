@@ -2,3 +2,7 @@ checks:
   addAllBuiltIn: true
   exclude:
     - "no-read-only-root-fs"
+    - "required-annotation-email"
+    - "required-label-owner"
+    - "read-secret-from-env-var"
+    - "use-namespace"

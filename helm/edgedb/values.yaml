@@ -53,6 +53,9 @@ service:
   type: ClusterIP
   port: 5656
 
+networkPolicy:
+  enabled: true
+
 resources:
   limits:
     cpu: 250m
