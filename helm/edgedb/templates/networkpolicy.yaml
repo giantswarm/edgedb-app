@@ -12,7 +12,7 @@ spec:
       {{- include "edgedb.selectorLabels" . | nindent 6 }}
   ingress:
   - ports:
-    - port: 8080
+    - port: 5656
       protocol: TCP
   egress:
   - {}
