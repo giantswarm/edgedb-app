@@ -76,6 +76,8 @@ spec:
             httpGet:
               path: /server/status/alive
               port: 5656
+            failureThreshold: 30
+            periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /server/status/alive
