@@ -67,25 +67,25 @@ spec:
                   name: {{ .Values.edgedb.backend.secretName }}
                   key: host
             - name: EDGEDB_PORT  # Only to fix https://github.com/edgedb/edgedb-docker/issues/69
-              value: {{ .Values.service.port | quote}}
+              value: {{ .Values.edgedb.container.port | quote}}
             - name: EDGEDB_SERVER_BACKEND_DSN
               value: "postgresql://$(PG_USER):$(PG_PASSWORD)@$(PG_SVC)?sslmode=disable"
           ports:
-            - containerPort: {{ .Values.service.port }}
+            - containerPort: {{ .Values.edgedb.container.port }}
           startupProbe:
             httpGet:
               path: /server/status/alive
-              port: {{ .Values.service.port }}
+              port: {{ .Values.edgedb.container.port }}
             failureThreshold: 30
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /server/status/alive
-              port: {{ .Values.service.port }}
+              port: {{ .Values.edgedb.container.port }}
           readinessProbe:
             httpGet:
               path: /server/status/ready
-              port: {{ .Values.service.port }}
+              port: {{ .Values.edgedb.container.port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
