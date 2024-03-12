@@ -18,7 +18,7 @@ edgedb:
   args:
     - "--enable-backend-adaptive-ha"
   backend:
-    secretName: edgedb-secret
+    secretName: edgedb-app
 
 serviceAccount:
   # Specifies whether a service account should be created

@@ -34,7 +34,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- with .Values.edgedb.args }}
           args:
@@ -43,6 +43,8 @@ spec:
           env:
             - name: EDGEDB_SERVER_TLS_CERT_MODE
               value: generate_self_signed
+            - name: EDGEDB_SERVER_SECURITY
+              value: insecure_dev_mode
             - name: EDGEDB_SERVER_RUNSTATE_DIR
               value: /tmp/edgedb
             - name: EDGEDB_SERVER_INSTANCE_NAME
