@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "edgedb.fullname" . }}
+  namespace: {{ include "resource.default.namespace"  . }}
+  labels:
+    {{- include "edgedb.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  strategy:
+    type: "RollingUpdate"
+  selector:
+    matchLabels:
+      {{- include "edgedb.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "edgedb.labels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "edgedb.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.edgedb.args }}
+          args:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          env:
+            - name: EDGEDB_SERVER_TLS_CERT_MODE
+              value: generate_self_signed
+            - name: EDGEDB_SERVER_RUNSTATE_DIR
+              value: /tmp/edgedb
+            - name: EDGEDB_SERVER_INSTANCE_NAME
+              value: "{{ .Release.Name }}"
+            - name: EDGEDB_SERVER_ADMIN_UI
+              value: enabled
+            - name: PG_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.edgedb.backend.secretName }}
+                  key: username
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.edgedb.backend.secretName }}
+                  key: password
+            - name: PG_SVC
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.edgedb.backend.secretName }}
+                  key: host
+            - name: EDGEDB_PORT  # Only to fix https://github.com/edgedb/edgedb-docker/issues/69
+              value: "5656"
+            - name: EDGEDB_SERVER_BACKEND_DSN
+              value: "postgresql://$(PG_USER):$(PG_PASSWORD)@$(PG_SVC)?sslmode=disable"
+          ports:
+            - containerPort: 5656
+          startupProbe:
+            httpGet:
+              path: /server/status/alive
+              port: 5656
+          livenessProbe:
+            httpGet:
+              path: /server/status/alive
+              port: 5656
+          readinessProbe:
+            httpGet:
+              path: /server/status/ready
+              port: 5656
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

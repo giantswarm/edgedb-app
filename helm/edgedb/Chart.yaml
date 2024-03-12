@@ -1,22 +1,14 @@
 apiVersion: v2
-appVersion: 0.0.1
-
-# Please make sure your name DOES NOT end in "app" or "-app".
+appVersion: "4.5"
+type: application
 name: edgedb
-
-# Please describe what the app provides in a sentence or two.
-description: Please add description
-
+description: A Helm chart for deploying the EdgeDB graph database.
 home: https://github.com/giantswarm/edgedb
-
-# If you have an icon/logo, you should add it to https://github.com/giantswarm/web-assets
-# and set the final URL as a value here and uncomment.
-#icon: https://s.giantswarm.io/app-icons/example/1/light.svg
-
+icon: https://s.giantswarm.io/app-icons/edgedb/light.svg
 sources:
-- https://github.com/some-org/some-repo
-version: 0.0.0-dev # [[ .Version ]] if you're using architect instead of app-build-suite
+- https://github.com/edgedb/edgedb
+- https://github.com/Japan7/nanak8s/tree/main/charts/edgedb
+version: 0.0.0-dev
 annotations:
-  application.giantswarm.io/team: TEAM-NAME # used through .Chart.Annotations.team (not replaced automatically)
-  branch: my-branch # Used through .Chart.Annotations.branch (This is not replaced automatically)
-  commit: f00bar # Used through .Chart.Annotations.commit (This is not replaced automatically)
+  application.giantswarm.io/team: "shield"
+  config.giantswarm.io/version: 1.x.x
