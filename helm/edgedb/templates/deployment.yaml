@@ -33,7 +33,7 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- with .Values.backend.args }}
+          {{- with .Values.edgedb.args }}
           args:
             {{- toYaml . | nindent 12 }}
           {{- end }}
