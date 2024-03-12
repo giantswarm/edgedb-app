@@ -29,5 +29,5 @@ spec:
       {{- end }}
   selector:
     matchLabels:
-  {{- include "edgedb.selectorLabels"" . | nindent 6 }}
+  {{- include "edgedb.selectorLabels" . | nindent 6 }}
 {{- end }}
