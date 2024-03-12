@@ -19,6 +19,8 @@ edgedb:
     - "--enable-backend-adaptive-ha"
   backend:
     secretName: edgedb-postgres-app
+  container:
+    port: 5656
 
 serviceAccount:
   # Specifies whether a service account should be created
