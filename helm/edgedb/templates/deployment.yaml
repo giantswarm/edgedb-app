@@ -34,7 +34,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- with .Values.edgedb.args }}
           args:
@@ -43,6 +43,8 @@ spec:
           env:
             - name: EDGEDB_SERVER_TLS_CERT_MODE
               value: generate_self_signed
+            - name: EDGEDB_SERVER_SECURITY
+              value: insecure_dev_mode
             - name: EDGEDB_SERVER_RUNSTATE_DIR
               value: /tmp/edgedb
             - name: EDGEDB_SERVER_INSTANCE_NAME
@@ -65,23 +67,25 @@ spec:
                   name: {{ .Values.edgedb.backend.secretName }}
                   key: host
             - name: EDGEDB_PORT  # Only to fix https://github.com/edgedb/edgedb-docker/issues/69
-              value: "5656"
+              value: {{ .Values.edgedb.container.port | quote}}
             - name: EDGEDB_SERVER_BACKEND_DSN
               value: "postgresql://$(PG_USER):$(PG_PASSWORD)@$(PG_SVC)?sslmode=disable"
           ports:
-            - containerPort: 5656
+            - containerPort: {{ .Values.edgedb.container.port }}
           startupProbe:
             httpGet:
               path: /server/status/alive
-              port: 5656
+              port: {{ .Values.edgedb.container.port }}
+            failureThreshold: 30
+            periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /server/status/alive
-              port: 5656
+              port: {{ .Values.edgedb.container.port }}
           readinessProbe:
             httpGet:
               path: /server/status/ready
-              port: 5656
+              port: {{ .Values.edgedb.container.port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
