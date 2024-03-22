@@ -122,5 +122,5 @@ spec:
       volumes:
         - name: edgedb-tls
           secret:
-            secretName: {{ .Values.edgedb.tls.secretName }}
+            secretName: {{ .Values.edgedb.security.tls.secretName }}
       {{- end }}
