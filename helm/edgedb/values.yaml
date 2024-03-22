@@ -21,6 +21,13 @@ edgedb:
     secretName: edgedb-postgres-app
   container:
     port: 5656
+  security:
+    tls:
+      enabled: true
+      issuerName: selfsigned-giantswarm
+      secretName: edgedb-tls
+    serverPassword:
+      secretName: edgedb-server-password
 
 serviceAccount:
   # Specifies whether a service account should be created

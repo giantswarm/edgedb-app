@@ -41,19 +41,22 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           env:
-            - name: EDGEDB_SERVER_TLS_CERT_MODE
-              value: generate_self_signed
-            - name: EDGEDB_SERVER_SECURITY
-              value: insecure_dev_mode
             - name: EDGEDB_SERVER_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: password
-                  name: edgedb-server-password
+                  name: {{ include "resource.default.name"  . }}-server-password
+            {{- if .Values.edgedb.security.tls.enabled }}
             - name: EDGEDB_SERVER_TLS_CERT_FILE
               value: /etc/edgedb/tls/tls.crt
             - name: EDGEDB_SERVER_TLS_KEY_FILE
               value: /etc/edgedb/tls/tls.key
+            {{- else }}
+            - name: EDGEDB_SERVER_SECURITY
+              value: insecure_dev_mode
+            - name: EDGEDB_SERVER_TLS_CERT_MODE
+              value: generate_self_signed
+            {{- end }}
             - name: EDGEDB_SERVER_RUNSTATE_DIR
               value: /tmp/edgedb
             - name: EDGEDB_SERVER_INSTANCE_NAME
@@ -97,10 +100,12 @@ spec:
               port: {{ .Values.edgedb.container.port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.edgedb.security.tls.enabled }}
           volumeMounts:
             - name: edgedb-tls
               mountPath: /etc/edgedb/tls
               readOnly: true
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -113,7 +118,9 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.edgedb.security.tls.enabled }}
       volumes:
         - name: edgedb-tls
           secret:
-            secretName: edgedb-tls
+            secretName: {{ .Values.edgedb.tls.secretName }}
+      {{- end }}
