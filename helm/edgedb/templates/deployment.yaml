@@ -45,6 +45,15 @@ spec:
               value: generate_self_signed
             - name: EDGEDB_SERVER_SECURITY
               value: insecure_dev_mode
+            - name: EDGEDB_SERVER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: edgedb-server-password
+            - name: EDGEDB_SERVER_TLS_CERT_FILE
+              value: /etc/edgedb/tls/tls.crt
+            - name: EDGEDB_SERVER_TLS_KEY_FILE
+              value: /etc/edgedb/tls/tls.key
             - name: EDGEDB_SERVER_RUNSTATE_DIR
               value: /tmp/edgedb
             - name: EDGEDB_SERVER_INSTANCE_NAME
@@ -88,6 +97,10 @@ spec:
               port: {{ .Values.edgedb.container.port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: edgedb-tls
+              mountPath: /etc/edgedb/tls
+              readOnly: true
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -100,3 +113,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: edgedb-tls
+          secret:
+            secretName: edgedb-tls
