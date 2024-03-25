@@ -12,4 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Create initial chart.
 - Add TLS for EdgeDB.
 
+### Changed
+
+- Push to control-plane and giantswarm catalogs. Do not push to playground.
+
 [Unreleased]: https://github.com/giantswarm/edgedb/tree/main
