@@ -3,6 +3,11 @@
     // Base config - https://github.com/giantswarm/renovate-presets/blob/main/default.json5
     "github>giantswarm/renovate-presets:default.json5",
   ],
+  "github-action": {
+    "fileMatch": [
+      ".*.yaml.template$",
+    ],
+  },
   "customManagers": [
     {
       "customType": "regex",
