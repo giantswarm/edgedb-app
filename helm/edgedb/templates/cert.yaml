@@ -1,0 +1,24 @@
+{{- if .Values.edgedb.security.tls.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "resource.default.name"  . }}-tls-cert
+  namespace: {{ include "resource.default.namespace"  . }}
+  labels:
+  {{- include "edgedb.labels" . | nindent 4 }}
+spec:
+  secretName: {{ .Values.edgedb.security.tls.secretName }}
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+  dnsNames:
+    - '*.{{ include "edgedb.fullname" . }}.{{ include "resource.default.namespace"  . }}.svc.cluster.local'
+    - '*.{{ include "edgedb.fullname" . }}.{{ include "resource.default.namespace"  . }}.svc.local'
+    - '*.{{ include "edgedb.fullname" . }}.{{ include "resource.default.namespace"  . }}.svc'
+    - '*.{{ include "edgedb.fullname" . }}.{{ include "resource.default.namespace"  . }}'
+    - '*.{{ include "edgedb.fullname" . }}'
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: {{ .Values.edgedb.security.tls.issuerName }}
+{{- end }}

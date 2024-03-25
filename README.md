@@ -1,4 +1,5 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/edgedb-app/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/edgedb-app/tree/main)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/giantswarm/edgedb-app/badge)](https://securityscorecards.dev/viewer/?uri=github.com/giantswarm/edgedb-app)
 
 # EdgeDB chart
 
