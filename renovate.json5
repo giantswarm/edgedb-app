@@ -7,7 +7,7 @@
     "fileMatch": [
       ".*.yaml.template$",
     ],
-  }
+  },
   "customManagers": [
     {
       "customType": "regex",
