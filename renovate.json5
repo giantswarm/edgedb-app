@@ -15,7 +15,7 @@
         ".*.yaml.template$",
       ],
       "matchStrings": [
-        "uses: (?<depName>.*)\/v?(?<currentValue>\\S+)\n",
+        "uses: (?<depName>.*)@v?(?<currentValue>.*)\n",
       ],
       "datasourceTemplate": "github-actions",
       "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
