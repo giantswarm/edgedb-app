@@ -17,7 +17,7 @@
       "matchStrings": [
         "uses: (?<depName>.*)@v?(?<currentValue>.*)\n",
       ],
-      "datasourceTemplate": "github-actions",
+      "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
     }
   ],
