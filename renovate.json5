@@ -5,7 +5,7 @@
     // Pin to the SHA of a GitHub action.
     "helpers:pinGitHubActionDigests",
   ],
-  "github-action": {
+  "github-actions": {
    "fileMatch": [
      ".*.yaml.template$",
    ],
