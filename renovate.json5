@@ -5,22 +5,22 @@
     // Pin to the SHA of a GitHub action.
     "helpers:pinGitHubActionDigests",
   ],
-  // "github-action": {
-  //  "fileMatch": [
-  //    ".*.yaml.template$",
-  //  ],
+  "github-action": {
+   "fileMatch": [
+     ".*.yaml.template$",
+   ],
   // },
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": [
-        ".*.yaml.template$",
-      ],
-      "matchStrings": [
-        "uses: (?<depName>.*)@v?(?<currentValue>.*)\n",
-      ],
-      "datasourceTemplate": "github-releases",
-      // "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
-    }
-  ],
+  // "customManagers": [
+  //   {
+  //     "customType": "regex",
+  //     "fileMatch": [
+  //       ".*.yaml.template$",
+  //     ],
+  //     "matchStrings": [
+  //       "uses: (?<depName>.*)@v?(?<currentValue>.*)\n",
+  //     ],
+  //     "datasourceTemplate": "github-releases",
+  //     // "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
+  //   }
+  // ],
 }
