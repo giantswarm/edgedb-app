@@ -9,6 +9,7 @@
    "fileMatch": [
      ".*.yaml.template$",
    ],
+  },
   // },
   // "customManagers": [
   //   {
