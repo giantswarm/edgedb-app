@@ -20,7 +20,7 @@
         "uses: (?<depName>.*)@v?(?<currentValue>.*)\n",
       ],
       "datasourceTemplate": "github-releases",
-      "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
+      // "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
     }
   ],
 }
