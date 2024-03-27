@@ -15,15 +15,3 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-    
-      - architect/push-to-app-catalog:
-          context: architect
-          executor: app-build-suite
-          name: push-edgedb-app-to-giantswarm-catalog
-          app_catalog: giantswarm-catalog
-          app_catalog_test: giantswarm-test-catalog
-          chart: edgedb
-          # Trigger job on git tag.
-          filters:
-            tags:
-              only: /^v.*/
