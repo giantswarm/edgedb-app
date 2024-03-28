@@ -14,6 +14,8 @@ EdgeDB is a graph database that uses PostgreSQL as a back end. Several capabilit
 
 The chart is slightly opinionated for Giant Swarm's use case, but may be generic enough to be used by others. PRs are welcome.
 
+Note to Giant Swarm customers: EdgeDB is used internally in our platform not currently offered as a managed app. You are welcome to use this chart if it suits your needs, but it will not be monitored and support will be on a best-effort basis.
+
 ## Installing
 
 There are several ways to install this app onto a workload cluster.
