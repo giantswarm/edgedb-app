@@ -1,0 +1,26 @@
+{{- if .Capabilities.APIVersions.Has "autoscaling.k8s.io/v1" -}}
+{{- if .Values.vpa.enabled -}}
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: {{ include "edgedb.fullname" . }}
+  namespace: {{ include "resource.default.namespace" . }}
+  labels:
+    {{- include "edgedb.labels" . | nindent 4 }}
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: {{ .Chart.Name }}
+    {{- if .Values.vpa.containerPolicies }}
+      {{- with .Values.vpa.containerPolicies -}}
+        {{ tpl (toYaml .) $ | nindent 6 }}
+      {{- end }}
+    {{- end }}
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "edgedb.fullname" . }}
+  updatePolicy:
+    updateMode: Auto
+{{- end -}}
+{{- end -}}

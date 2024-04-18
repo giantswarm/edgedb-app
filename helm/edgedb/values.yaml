@@ -29,6 +29,13 @@ edgedb:
     serverPassword:
       secretName: edgedb-server-password
 
+postgres:
+  cnpg:
+    enabled: true
+    instances: 2
+    storage:
+      size: 1Gi
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -77,12 +84,20 @@ resources:
     cpu: 250m
     memory: 1024Mi
 
+# Use either HPA or VPA, but not both.
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
+
+# Use either HPA or VPA, but not both.
+vpa:
+  enabled: true
+  containerPolicies:
+    minAllowed:
+      memory: "1024Mi"  # edgedb has a 1GB minimum.
 
 nodeSelector: {}
 
