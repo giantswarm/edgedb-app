@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Create initial chart.
 - Add TLS for EdgeDB.
+- Optionally deploy CNPG postgres cluster resource.
 
 ### Changed
 
