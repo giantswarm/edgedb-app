@@ -1,0 +1,12 @@
+{{- if .Values.postgres.cnpg.enabled -}}
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ include "edgedb.fullname" . }}-postgres
+  namespace: {{ include "resource.default.namespace"  . }}
+spec:
+  instances: {{ .Values.postgres.cnpg.instances }}
+
+  storage:
+    size: {{ .Values.postgres.cnpg.storage.size }}
+{{- end -}}
