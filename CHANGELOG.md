@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.1] - 2024-04-19
+
 ### Added
 
 - Create initial chart.
@@ -17,4 +19,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Push to control-plane catalog. Do not push to playground.
 
-[Unreleased]: https://github.com/giantswarm/edgedb/tree/main
+[Unreleased]: https://github.com/giantswarm/edgedb-app/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/giantswarm/edgedb-app/releases/tag/v0.0.1

@@ -6,9 +6,9 @@ description: A Helm chart for deploying the EdgeDB graph database.
 home: https://github.com/giantswarm/edgedb
 icon: https://s.giantswarm.io/app-icons/edgedb/light.svg
 sources:
-- https://github.com/edgedb/edgedb
-- https://github.com/Japan7/nanak8s/tree/main/charts/edgedb
-version: 0.0.0-dev
+  - https://github.com/edgedb/edgedb
+  - https://github.com/Japan7/nanak8s/tree/main/charts/edgedb
+version: 0.0.1
 annotations:
   application.giantswarm.io/team: "shield"
   config.giantswarm.io/version: 1.x.x
