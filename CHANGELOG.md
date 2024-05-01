@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Pin minimum CPU to 250m.
+- Deploy pod monitors for the postgres cluster.
+
 ## [0.0.1] - 2024-04-19
 
 ### Added
