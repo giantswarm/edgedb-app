@@ -18,7 +18,7 @@ edgedb:
   args:
     - "--enable-backend-adaptive-ha"
   backend:
-    secretName: edgedb-postgres-app
+    secretName: edgedb-postgres-superuser
   container:
     port: 5656
   security:
@@ -35,6 +35,10 @@ postgres:
     instances: 2
     storage:
       size: 1Gi
+    monitoring:
+      podMonitor:
+        enabled: true
+        labels: {}
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -97,6 +101,7 @@ vpa:
   enabled: true
   containerPolicies:
     minAllowed:
+      cpu: "250m"
       memory: "1024Mi"  # edgedb has a 1GB minimum.
 
 nodeSelector: {}
