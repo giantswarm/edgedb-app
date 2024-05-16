@@ -19,7 +19,7 @@ spec:
 
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
-    kind: ImageCatalog
+    kind: ClusterImageCatalog
     major: {{ .Values.postgres.cnpg.imageCatalogRef.major }}
     name: {{ .Values.postgres.cnpg.imageCatalogRef.name }}
   
