@@ -39,6 +39,12 @@ postgres:
       podMonitor:
         enabled: true
         labels: {}
+    imageCatalogRef:
+      apiGroup: postgresql.cnpg.io
+      kind: ImageCatalog
+      major: 16
+      name: gs-postgresql
+    switchoverDelay: 60
 
 serviceAccount:
   # Specifies whether a service account should be created
