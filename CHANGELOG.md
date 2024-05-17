@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Pin minimum CPU to 250m.
 - Deploy pod monitors for the postgres cluster.
+- Reduce shutdown delays.
+- Use Giant Swarm retagged images.
 
 ## [0.0.1] - 2024-04-19
 
