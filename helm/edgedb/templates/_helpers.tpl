@@ -65,3 +65,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Template the cluster name.
+*/}}
+{{- define "edgedb.pgClusterName" -}}
+{{- include "edgedb.fullname" . -}}-postgres
+{{- end }}
