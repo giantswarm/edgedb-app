@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add Cilium Network Policies for EdgeDB and managed Postgres instances.
+
 ## [0.0.2] - 2024-05-17
 
 ### Changed
