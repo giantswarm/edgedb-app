@@ -84,6 +84,9 @@ service:
 networkPolicy:
   enabled: true
 
+ciliumNetworkPolicy:
+  enabled: true
+
 resources:
   limits:
     cpu: 250m

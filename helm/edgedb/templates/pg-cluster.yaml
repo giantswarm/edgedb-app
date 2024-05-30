@@ -2,7 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: {{ include "edgedb.fullname" . }}-postgres
+  name: {{ include "edgedb.pgClusterName" . }}
   namespace: {{ include "resource.default.namespace"  . }}
 spec:
   instances: {{ .Values.postgres.cnpg.instances }}
