@@ -67,7 +67,7 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Template the cluster name.
+Template the Postgres cluster name used by edgedb.
 */}}
 {{- define "edgedb.pgClusterName" -}}
 {{- include "edgedb.fullname" . -}}-postgres
