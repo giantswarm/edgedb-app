@@ -26,7 +26,7 @@ spec:
     - ports:
       - port: "5656"
       - port: "9187"
-{{- if .Values.postgres.cnpg.enabled -}}
+{{ if .Values.postgres.cnpg.enabled -}}
 ---
 # This policy targets PostgreSQL database pods managed outside this app, but deployed from this app's CNPG Cluster resource.
 apiVersion: cilium.io/v2
@@ -45,7 +45,7 @@ spec:
     # Allow ingress to the EdgeDB Postgres cluster from an EdgeDB application pod in the same namespace.
     - fromEndpoints:
         - matchLabels:
-            {{- include "edgedb.selectorLabels" . | nindent 6 }}
+            {{- include "edgedb.selectorLabels" . | nindent 12 }}
       toPorts:
         - ports:
             - port: "5432"
