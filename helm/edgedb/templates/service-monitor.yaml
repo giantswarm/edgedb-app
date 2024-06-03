@@ -39,6 +39,7 @@ spec:
         keySecret:
           key: tls.key
           name: {{ .Values.edgedb.security.tls.secretName }}
+        serverName: {{ include "edgedb.fullname" . }}
   selector:
     matchLabels:
   {{- include "edgedb.selectorLabels" . | nindent 6 }}
