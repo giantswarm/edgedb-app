@@ -103,7 +103,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- if .Values.edgedb.security.tls.enabled }}
           volumeMounts:
-            - name: edgedb-tls
+            - name: {{ .Values.edgedb.security.tls.secretName }}
               mountPath: /etc/edgedb/tls
               readOnly: true
           {{- end }}

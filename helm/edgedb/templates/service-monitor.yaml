@@ -27,6 +27,18 @@ spec:
       metricRelabelings:
         {{- toYaml . | nindent 6 }}
       {{- end }}
+      tlsConfig:
+        ca:
+          secret:
+            key: ca.crt
+            name: {{ .Values.edgedb.security.tls.secretName }}
+        cert:
+          secret:
+            key: tls.crt
+            name: {{ .Values.edgedb.security.tls.secretName }}
+        keySecret:
+          key: tls.key
+          name: {{ .Values.edgedb.security.tls.secretName }}
   selector:
     matchLabels:
   {{- include "edgedb.selectorLabels" . | nindent 6 }}
