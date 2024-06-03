@@ -17,6 +17,7 @@ spec:
     - '*.{{ include "edgedb.fullname" . }}.{{ include "resource.default.namespace"  . }}.svc'
     - '*.{{ include "edgedb.fullname" . }}.{{ include "resource.default.namespace"  . }}'
     - '*.{{ include "edgedb.fullname" . }}'
+    - '{{ include "edgedb.fullname" . }}'
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer

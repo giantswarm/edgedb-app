@@ -27,6 +27,7 @@ spec:
       metricRelabelings:
         {{- toYaml . | nindent 6 }}
       {{- end }}
+      scheme: https
       tlsConfig:
         ca:
           secret:
