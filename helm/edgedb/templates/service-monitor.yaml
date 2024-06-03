@@ -12,7 +12,7 @@ metadata:
 spec:
   endpoints:
     - path: /metrics
-      targetPort: {{ .Values.service.port }}
+      port: {{ .Values.edgedb.container.portName | quote }}
       {{- if .Values.monitoring.serviceMonitor.interval}}
       interval: {{ .Values.monitoring.serviceMonitor.interval }}
       {{- end }}
