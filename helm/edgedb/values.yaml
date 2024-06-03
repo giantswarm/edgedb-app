@@ -21,6 +21,7 @@ edgedb:
     secretName: edgedb-postgres-superuser
   container:
     port: 5656
+    portName: edgedb
   security:
     tls:
       enabled: true

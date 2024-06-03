@@ -84,6 +84,7 @@ spec:
               value: "postgresql://$(PG_USER):$(PG_PASSWORD)@$(PG_SVC)?sslmode=disable"
           ports:
             - containerPort: {{ .Values.edgedb.container.port }}
+              name: {{ .Values.edgedb.container.portName }}
           startupProbe:
             httpGet:
               path: /server/status/alive
