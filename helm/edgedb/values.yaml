@@ -20,8 +20,8 @@ edgedb:
   backend:
     secretName: edgedb-postgres-superuser
   container:
-    port: 5656
-    portName: edgedb
+    port: &containerPort 5656
+    portName: &containerPortName edgedb
   security:
     tls:
       enabled: true
@@ -80,7 +80,8 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 5656
+  port: *containerPort
+  portName: *containerPortName
 
 networkPolicy:
   enabled: true
