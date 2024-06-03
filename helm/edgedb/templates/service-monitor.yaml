@@ -12,7 +12,7 @@ metadata:
 spec:
   endpoints:
     - path: /metrics
-      port: {{ .Values.service.port | quote}}
+      port: {{ .Values.service.port }}
       {{- if .Values.monitoring.serviceMonitor.interval}}
       interval: {{ .Values.monitoring.serviceMonitor.interval }}
       {{- end }}
