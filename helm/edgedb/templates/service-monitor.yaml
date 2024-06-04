@@ -12,7 +12,7 @@ metadata:
 spec:
   endpoints:
     - path: /metrics
-      port: {{ .Values.service.port | quote}}
+      port: {{ .Values.edgedb.container.portName | quote }}
       {{- if .Values.monitoring.serviceMonitor.interval}}
       interval: {{ .Values.monitoring.serviceMonitor.interval }}
       {{- end }}
@@ -27,6 +27,20 @@ spec:
       metricRelabelings:
         {{- toYaml . | nindent 6 }}
       {{- end }}
+      scheme: https
+      tlsConfig:
+        ca:
+          secret:
+            key: ca.crt
+            name: {{ .Values.edgedb.security.tls.secretName }}
+        cert:
+          secret:
+            key: tls.crt
+            name: {{ .Values.edgedb.security.tls.secretName }}
+        keySecret:
+          key: tls.key
+          name: {{ .Values.edgedb.security.tls.secretName }}
+        serverName: {{ include "edgedb.fullname" . }}
   selector:
     matchLabels:
   {{- include "edgedb.selectorLabels" . | nindent 6 }}
