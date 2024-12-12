@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "4.5"
+appVersion: "5.7"
 type: application
 name: edgedb
 description: A Helm chart for deploying the EdgeDB graph database.
@@ -8,7 +8,7 @@ icon: https://s.giantswarm.io/app-icons/edgedb/light.svg
 sources:
   - https://github.com/edgedb/edgedb
   - https://github.com/Japan7/nanak8s/tree/main/charts/edgedb
-version: 0.0.3
+version: 0.1.0
 annotations:
   application.giantswarm.io/team: "shield"
   config.giantswarm.io/version: 1.x.x
