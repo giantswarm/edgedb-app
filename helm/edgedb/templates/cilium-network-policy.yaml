@@ -42,15 +42,11 @@ spec:
       cnpg.io/cluster: {{ include "edgedb.pgClusterName" . }}
       cnpg.io/podRole: instance
   ingress:
-    # Allow ingress to the EdgeDB Postgres cluster from an EdgeDB application pod in the same namespace.
     - fromEndpoints:
+        # Allow ingress to the EdgeDB PostgreSQL cluster from an EdgeDB application pod in the same namespace.
         - matchLabels:
             {{- include "edgedb.selectorLabels" . | nindent 12 }}
-      toPorts:
-        - ports:
-            - port: "5432"
-    # Allow ingress from other CNPG cluster members (including join pods).
-    - fromEndpoints:
+        # Allow ingress from other CNPG cluster members (including join pods).
         - matchLabels:
             cnpg.io/cluster: {{ include "edgedb.pgClusterName" . }}
       toPorts:
