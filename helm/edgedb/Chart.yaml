@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: "7.0"
 type: application
-name: gel
+name: edgedb
 description: A Helm chart for deploying the Gel graph database.
 home: https://github.com/giantswarm/gel-app
 icon: https://s.giantswarm.io/app-icons/edgedb/light.svg
