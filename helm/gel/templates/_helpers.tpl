@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "edgedb.name" -}}
+{{- define "gel.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "edgedb.fullname" -}}
+{{- define "gel.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "edgedb.chart" -}}
+{{- define "gel.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "edgedb.labels" -}}
-helm.sh/chart: {{ include "edgedb.chart" . }}
-{{ include "edgedb.selectorLabels" . }}
+{{- define "gel.labels" -}}
+helm.sh/chart: {{ include "gel.chart" . }}
+{{ include "gel.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -50,25 +50,25 @@ giantswarm.io/service-type: {{ .Values.serviceType }}
 {{/*
 Selector labels
 */}}
-{{- define "edgedb.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "edgedb.name" . }}
+{{- define "gel.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "gel.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "edgedb.serviceAccountName" -}}
+{{- define "gel.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "edgedb.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "gel.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
 
 {{/*
-Template the Postgres cluster name used by edgedb.
+Template the Postgres cluster name used by gel.
 */}}
-{{- define "edgedb.pgClusterName" -}}
-{{- include "edgedb.fullname" . -}}-postgres
+{{- define "gel.pgClusterName" -}}
+{{- include "gel.fullname" . -}}-postgres
 {{- end }}

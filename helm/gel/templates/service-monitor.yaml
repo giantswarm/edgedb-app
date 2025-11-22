@@ -5,14 +5,14 @@ metadata:
   name: {{ include "resource.default.name"  . }}
   namespace: {{ include "resource.default.namespace"  . }}
   labels:
-  {{- include "edgedb.labels" . | nindent 4 }}
+  {{- include "gel.labels" . | nindent 4 }}
   {{- with .Values.monitoring.serviceMonitor.labels }}
       {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   endpoints:
     - path: /metrics
-      port: {{ .Values.edgedb.container.portName | quote }}
+      port: {{ .Values.gel.container.portName | quote }}
       {{- if .Values.monitoring.serviceMonitor.interval}}
       interval: {{ .Values.monitoring.serviceMonitor.interval }}
       {{- end }}
@@ -32,16 +32,16 @@ spec:
         ca:
           secret:
             key: ca.crt
-            name: {{ .Values.edgedb.security.tls.secretName }}
+            name: {{ .Values.gel.security.tls.secretName }}
         cert:
           secret:
             key: tls.crt
-            name: {{ .Values.edgedb.security.tls.secretName }}
+            name: {{ .Values.gel.security.tls.secretName }}
         keySecret:
           key: tls.key
-          name: {{ .Values.edgedb.security.tls.secretName }}
-        serverName: {{ include "edgedb.fullname" . }}
+          name: {{ .Values.gel.security.tls.secretName }}
+        serverName: {{ include "gel.fullname" . }}
   selector:
     matchLabels:
-  {{- include "edgedb.selectorLabels" . | nindent 6 }}
+  {{- include "gel.selectorLabels" . | nindent 6 }}
 {{- end }}

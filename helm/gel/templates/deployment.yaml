@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "edgedb.fullname" . }}
+  name: {{ include "gel.fullname" . }}
   namespace: {{ include "resource.default.namespace"  . }}
   labels:
-    {{- include "edgedb.labels" . | nindent 4 }}
+    {{- include "gel.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -13,7 +13,7 @@ spec:
     type: "RollingUpdate"
   selector:
     matchLabels:
-      {{- include "edgedb.selectorLabels" . | nindent 6 }}
+      {{- include "gel.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -21,13 +21,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "edgedb.labels" . | nindent 8 }}
+        {{- include "gel.labels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "edgedb.serviceAccountName" . }}
+      serviceAccountName: {{ include "gel.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -36,7 +36,7 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- with .Values.edgedb.args }}
+          {{- with .Values.gel.args }}
           args:
             {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -46,11 +46,11 @@ spec:
                 secretKeyRef:
                   key: password
                   name: {{ include "resource.default.name"  . }}-server-password
-            {{- if .Values.edgedb.security.tls.enabled }}
+            {{- if .Values.gel.security.tls.enabled }}
             - name: EDGEDB_SERVER_TLS_CERT_FILE
-              value: /etc/edgedb/tls/tls.crt
+              value: /etc/gel/tls/tls.crt
             - name: EDGEDB_SERVER_TLS_KEY_FILE
-              value: /etc/edgedb/tls/tls.key
+              value: /etc/gel/tls/tls.key
             {{- else }}
             - name: EDGEDB_SERVER_SECURITY
               value: insecure_dev_mode
@@ -58,7 +58,7 @@ spec:
               value: generate_self_signed
             {{- end }}
             - name: EDGEDB_SERVER_RUNSTATE_DIR
-              value: /tmp/edgedb
+              value: /tmp/gel
             - name: EDGEDB_SERVER_INSTANCE_NAME
               value: "{{ .Release.Name }}"
             - name: EDGEDB_SERVER_ADMIN_UI
@@ -66,45 +66,45 @@ spec:
             - name: PG_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.edgedb.backend.secretName }}
+                  name: {{ .Values.gel.backend.secretName }}
                   key: username
             - name: PG_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.edgedb.backend.secretName }}
+                  name: {{ .Values.gel.backend.secretName }}
                   key: password
             - name: PG_SVC
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.edgedb.backend.secretName }}
+                  name: {{ .Values.gel.backend.secretName }}
                   key: host
             - name: EDGEDB_PORT  # Only to fix https://github.com/edgedb/edgedb-docker/issues/69
-              value: {{ .Values.edgedb.container.port | quote}}
+              value: {{ .Values.gel.container.port | quote}}
             - name: EDGEDB_SERVER_BACKEND_DSN
               value: "postgresql://$(PG_USER):$(PG_PASSWORD)@$(PG_SVC)?sslmode=disable"
           ports:
-            - containerPort: {{ .Values.edgedb.container.port }}
-              name: {{ .Values.edgedb.container.portName }}
+            - containerPort: {{ .Values.gel.container.port }}
+              name: {{ .Values.gel.container.portName }}
           startupProbe:
             httpGet:
               path: /server/status/alive
-              port: {{ .Values.edgedb.container.port }}
+              port: {{ .Values.gel.container.port }}
             failureThreshold: 30
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /server/status/alive
-              port: {{ .Values.edgedb.container.port }}
+              port: {{ .Values.gel.container.port }}
           readinessProbe:
             httpGet:
               path: /server/status/ready
-              port: {{ .Values.edgedb.container.port }}
+              port: {{ .Values.gel.container.port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.edgedb.security.tls.enabled }}
+          {{- if .Values.gel.security.tls.enabled }}
           volumeMounts:
-            - name: {{ .Values.edgedb.security.tls.secretName }}
-              mountPath: /etc/edgedb/tls
+            - name: {{ .Values.gel.security.tls.secretName }}
+              mountPath: /etc/gel/tls
               readOnly: true
           {{- end }}
       {{- with .Values.nodeSelector }}
@@ -119,9 +119,9 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if .Values.edgedb.security.tls.enabled }}
+      {{- if .Values.gel.security.tls.enabled }}
       volumes:
-        - name: edgedb-tls
+        - name: gel-tls
           secret:
-            secretName: {{ .Values.edgedb.security.tls.secretName }}
+            secretName: {{ .Values.gel.security.tls.secretName }}
       {{- end }}

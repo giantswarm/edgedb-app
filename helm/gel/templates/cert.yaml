@@ -1,0 +1,25 @@
+{{- if .Values.gel.security.tls.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "resource.default.name"  . }}-tls-cert
+  namespace: {{ include "resource.default.namespace"  . }}
+  labels:
+  {{- include "gel.labels" . | nindent 4 }}
+spec:
+  secretName: {{ .Values.gel.security.tls.secretName }}
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+  dnsNames:
+    - '*.{{ include "gel.fullname" . }}.{{ include "resource.default.namespace"  . }}.svc.cluster.local'
+    - '*.{{ include "gel.fullname" . }}.{{ include "resource.default.namespace"  . }}.svc.local'
+    - '*.{{ include "gel.fullname" . }}.{{ include "resource.default.namespace"  . }}.svc'
+    - '*.{{ include "gel.fullname" . }}.{{ include "resource.default.namespace"  . }}'
+    - '*.{{ include "gel.fullname" . }}'
+    - '{{ include "gel.fullname" . }}'
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: {{ .Values.gel.security.tls.issuerName }}
+{{- end }}

@@ -3,10 +3,10 @@
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
-  name: {{ include "edgedb.fullname" . }}
+  name: {{ include "gel.fullname" . }}
   namespace: {{ include "resource.default.namespace" . }}
   labels:
-    {{- include "edgedb.labels" . | nindent 4 }}
+    {{- include "gel.labels" . | nindent 4 }}
 spec:
   resourcePolicy:
     containerPolicies:
@@ -19,7 +19,7 @@ spec:
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "edgedb.fullname" . }}
+    name: {{ include "gel.fullname" . }}
   updatePolicy:
     updateMode: Auto
 {{- end -}}

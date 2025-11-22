@@ -1,11 +1,11 @@
-name: edgedb
+name: gel
 serviceType: managed
 
 replicaCount: 1
 
 image:
   registry: gsoci.azurecr.io
-  name: giantswarm/edgedb
+  name: giantswarm/gel
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -14,21 +14,21 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-edgedb:
+gel:
   args:
     - "--enable-backend-adaptive-ha"
   backend:
-    secretName: edgedb-postgres-superuser
+    secretName: gel-postgres-superuser
   container:
     port: &containerPort 5656
-    portName: &containerPortName edgedb
+    portName: &containerPortName gel
   security:
     tls:
       enabled: true
       issuerName: selfsigned-giantswarm
-      secretName: edgedb-tls
+      secretName: gel-tls
     serverPassword:
-      secretName: edgedb-server-password
+      secretName: gel-server-password
 
 postgres:
   cnpg:
@@ -111,7 +111,7 @@ vpa:
   containerPolicies:
     minAllowed:
       cpu: "250m"
-      memory: "1024Mi"  # edgedb has a 1GB minimum.
+      memory: "1024Mi"  # gel has a 1GB minimum.
 
 nodeSelector: {}
 
