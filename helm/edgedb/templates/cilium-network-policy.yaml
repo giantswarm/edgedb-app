@@ -2,20 +2,20 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: {{ include "edgedb.fullname" . }}
+  name: {{ include "gel.fullname" . }}
   namespace: {{ include "resource.default.namespace" . }}
   labels:
-    {{- include "edgedb.labels" . | nindent 4 }}
+    {{- include "gel.labels" . | nindent 4 }}
 spec:
   endpointSelector:
     matchLabels:
-       {{- include "edgedb.selectorLabels" . | nindent 6 }}
+       {{- include "gel.selectorLabels" . | nindent 6 }}
   egress:
     # Allow egress to database pods.
     # This assumes the Postgres cluster is the CNPG cluster included in this app. A separate policy is needed if using other Postgres clusters.
     - toEndpoints:
         - matchLabels:        
-            cnpg.io/cluster: {{ include "edgedb.pgClusterName" . }}
+            cnpg.io/cluster: {{ include "gel.pgClusterName" . }}
       toPorts:
       - ports:
         - port: "5432"
@@ -32,23 +32,23 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: {{ include "edgedb.fullname" . }}-pg-cluster
+  name: {{ include "gel.fullname" . }}-pg-cluster
   namespace: {{ include "resource.default.namespace" . }}
   labels:
-    {{- include "edgedb.labels" . | nindent 4 }}
+    {{- include "gel.labels" . | nindent 4 }}
 spec:
   endpointSelector:
     matchLabels:
-      cnpg.io/cluster: {{ include "edgedb.pgClusterName" . }}
+      cnpg.io/cluster: {{ include "gel.pgClusterName" . }}
       cnpg.io/podRole: instance
   ingress:
     - fromEndpoints:
-        # Allow ingress to the EdgeDB PostgreSQL cluster from an EdgeDB application pod in the same namespace.
+        # Allow ingress to the Gel PostgreSQL cluster from a Gel application pod in the same namespace.
         - matchLabels:
-            {{- include "edgedb.selectorLabels" . | nindent 12 }}
+            {{- include "gel.selectorLabels" . | nindent 12 }}
         # Allow ingress from other CNPG cluster members (including join pods).
         - matchLabels:
-            cnpg.io/cluster: {{ include "edgedb.pgClusterName" . }}
+            cnpg.io/cluster: {{ include "gel.pgClusterName" . }}
       toPorts:
         - ports:
             - port: "5432"
@@ -56,7 +56,7 @@ spec:
     # Allow egress to other CNPG cluster members.
     - toEndpoints:
         - matchLabels:        
-            cnpg.io/cluster: {{ include "edgedb.pgClusterName" . }}
+            cnpg.io/cluster: {{ include "gel.pgClusterName" . }}
       toPorts:
         - ports:
             - port: "5432"

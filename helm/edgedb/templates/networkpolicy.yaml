@@ -5,11 +5,11 @@ metadata:
   name: {{ include "resource.networkPolicy.name" . }}
   namespace: {{ include "resource.default.namespace" . }}
   labels:
-    {{- include "edgedb.labels" . | nindent 4 }}
+    {{- include "gel.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
-      {{- include "edgedb.selectorLabels" . | nindent 6 }}
+      {{- include "gel.selectorLabels" . | nindent 6 }}
   ingress:
   - ports:
     - port: 5656

@@ -22,7 +22,7 @@
                 }
             }
         },
-        "edgedb": {
+        "gel": {
             "type": "object",
             "properties": {
                 "args": {
