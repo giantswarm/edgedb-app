@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **BREAKING**: Renamed application from EdgeDB to Gel following upstream project rename.
 - Simplify Cilium Network Policy for cloudnative-pg postgresql pods.
+- Update to gel v7.0.
 
 ## [0.1.0] - 2025-01-23
 
